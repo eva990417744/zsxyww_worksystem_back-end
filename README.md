@@ -7,10 +7,15 @@
 
 ### 环境
 sudo apt-get update
+
 sudo apt-get install libcurl4-gnutls-dev librtmp-dev python3-dev build-essential mysql-server
+
 sudo apt-get install python3 python3-pip nginx
+
 sudo pip3 install --upgrade pip
+
 sudo pip3 install --upgrade setuptools
+
 sudo pip3 install django wsgi circus psutil ysqlclient
 
 ### nginx
