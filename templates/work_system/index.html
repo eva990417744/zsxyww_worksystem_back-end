@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <script src="http://127.0.0.1/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<form id="form">
+    <label for="loginName">登录名</label>
+    <input id="loginName" type="text" name="loginname">
+    <label for="password">密码</label>
+    <input id="password" type="password" name="password">
+</form>
+<input id="send" type="button" value="登录">
+
+</body>
+
+<script type="text/javascript">
+    {#    var csrftoken = null;#}
+    {#    $.ajax({#}
+    {#        url: '/work/is_login/',#}
+    {#        type: "get",#}
+    {#        success: function (data) {#}
+    {#            console.log(data);#}
+    {#            csrftoken = data.csrf_token#}
+    {#            console.log(csrftoken);#}
+    {#        }#}
+    {##}
+    {#    });#}
+    $(function () {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+//
+        <!--获取csrftoken-->
+        var csrftoken = getCookie('csrftoken');
+
+
+        console.log(csrftoken);
+
+
+        function csrfSafeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            //请求前触发
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        $('#send').click(function () {
+            console.log($("#comment_form").serialize());
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1/work/login/',
+                data: {
+                    username: $('#loginName').val(),
+                    password: $('#password').val()
+                    {#                    'csrfmiddlewaretoken': '{{ csrf_token }}'#}
+                },
+                dataType: 'json',
+                success: function (data) {
+                    csrftoken = getCookie('csrftoken');
+                    console.log(csrftoken);
+                    $.ajaxSetup({
+                        crossDomain: false, // obviates need for sameOrigin test
+                        //请求前触发
+                        beforeSend: function (xhr, settings) {
+                            if (!csrfSafeMethod(settings.type)) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        }
+                    });
+                },
+                error: function () {
+                    csrftoken = getCookie('csrftoken');
+                    console.log(csrftoken);
+                    $.ajaxSetup({
+                        crossDomain: false, // obviates need for sameOrigin test
+                        //请求前触发
+                        beforeSend: function (xhr, settings) {
+                            if (!csrfSafeMethod(settings.type)) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        }
+                    });
+                }
+
+            });
+        });
+    });
+</script>
+</html>

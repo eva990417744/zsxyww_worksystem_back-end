@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <title>hp</title>
+</head>
+<body>
+    <div class="container" role="main">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tbody>
+                {% for hp in hp_list %}
+                <tr>
+                    <td>
+                        <a href="{{ hp.user.username }}">
+                            {{ hp.user.username }}
+                            {{ hp.user.name }}
+                            HP:{{hp.value}}
+
+                            <div class="progress">
+                                {% if hp.value >= 75 %}
+                                    <div class="progress-bar progress-bar-success" style="width: {{ hp.value }}%"></div>
+                                {% elif hp.value >= 50 %}
+                                    <div class="progress-bar progress-bar-warning" style="width: {{ hp.value }}%"></div>
+                                {% else %}
+                                    <div class="progress-bar progress-bar-danger" style="width: {{ hp.value }}%"></div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

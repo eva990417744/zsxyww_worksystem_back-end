@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <title>Details</title>
+</head>
+<body>
+    <div class="container" role="main">
+        <div class="col-md-12">
+            <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>
+                    <p>{{ member_hp.user.username }} {{ member_name }}</p>
+                    <p>HP:{{member_hp.value}}</p>
+                    <div class="progress">
+                        {% if member_hp.value >= 75 %}
+                            <div class="progress-bar progress-bar-success" style="width: {{ member_hp.value }}%"></div>
+                        {% elif member_hp.value >= 50 %}
+                            <div class="progress-bar progress-bar-warning" style="width: {{ member_hp.value }}%"></div>
+                        {% else %}
+                            <div class="progress-bar progress-bar-danger" style="width: {{ member_hp.value }}%"></div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% for buff in all_buffs %}
+
+                <tr>
+                    <td>
+                        {% if buff.hp_increase %}
+                            <p>{{ buff }} | HP+{{ buff.hp_increase }} | {{ buff.add_time }}</p>
+                        {% else %}
+                            <p>{{ buff }} | HP-{{ buff.hp_decrease }} | {{ buff.add_time }}</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

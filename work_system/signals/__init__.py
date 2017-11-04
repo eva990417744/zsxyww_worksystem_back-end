@@ -1,0 +1,1 @@
+default_app_config = 'work_system.signals.apps.SignalsConfig'
