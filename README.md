@@ -26,7 +26,7 @@ https://nginx.org/
 参考django文档 
 https://docs.djangoproject.com/en/1.11/
 
-## uwsgi
+### uwsgi
 参考官方文档
 https://uwsgi.readthedocs.io/en/latest/tutorials/Django_and_nginx.html
 
