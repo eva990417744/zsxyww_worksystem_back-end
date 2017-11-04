@@ -19,7 +19,7 @@ sudo pip3 install --upgrade setuptools
 sudo pip3 install django wsgi circus psutil ysqlclient
 
 ### nginx
-参考nginx官网  
+参考nginx官网
 https://nginx.org/
 
 ### Django
